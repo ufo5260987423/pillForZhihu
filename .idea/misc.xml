@@ -7,6 +7,9 @@
     <option name="name" value="ufo's eclipse code format" />
     <option name="pathToConfigFileJava" value="$USER_HOME$/Desktop/codetemplates.xml" />
   </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/webApp" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
