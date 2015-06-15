@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.pillForZhihu.webApp.dao.utils">
+    <class name="ValueBase" table="content_value">
+        <id name="valueId" column="content_value_id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="entityId" column="content_id"/>
+        <property name="keyId" column="content_key_id"/>
+        <property name="value" column="content_value"/>
+    </class>
+</hibernate-mapping>
