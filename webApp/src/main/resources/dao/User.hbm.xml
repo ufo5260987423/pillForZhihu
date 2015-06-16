@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.pillForZhihu.webApp.dao">
+    <class name="User" table="user">
+        <id name="entityId" column="user_id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="user_name" column="user_name"/>
+        <property name="user_pwd" column="user_pwd"/>
+    </class>
+</hibernate-mapping>

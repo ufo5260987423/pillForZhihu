@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.pillForZhihu.webApp.dao.utils">
-    <class name="KeyBase" table="user_key">
-        <id name="keyId" column="user_key_id" type="java.lang.Integer">
+<hibernate-mapping package="com.pillForZhihu.webApp.dao">
+    <class name="Content" table="content">
+        <id name="entityId" column="content_id" type="java.lang.Long">
             <generator class="identity"/>
         </id>
-        <property name="key" column="user_key"/>
+        <property name="content" column="content"/>
     </class>
 </hibernate-mapping>

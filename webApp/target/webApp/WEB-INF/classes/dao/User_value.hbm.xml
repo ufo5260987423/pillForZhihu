@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.pillForZhihu.webApp.dao">
+    <class name="User_value" table="user_value">
+        <id name="valueId" column="user_value_id" type="java.lang.Long">
+            <generator class="identity"/>
+        </id>
+        <property name="entityId" column="user_id"/>
+        <property name="keyId" column="user_key_id"/>
+        <property name="value" column="user_value"/>
+    </class>
+</hibernate-mapping>
