@@ -2,6 +2,8 @@ package com.pillForZhihu.webApp.dao;
 
 import com.pillForZhihu.webApp.dao.utils.EntityBase;
 
+import java.sql.Timestamp;
+
 /**
  * Created by ufo on 6/15/15.
  *
@@ -10,6 +12,7 @@ import com.pillForZhihu.webApp.dao.utils.EntityBase;
  */
 public class Content extends EntityBase{
     private String content;
+    private Timestamp content_timestamp;
 
     public String getContent() {
         return content;
@@ -17,5 +20,13 @@ public class Content extends EntityBase{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Timestamp getContent_timestamp() {
+        return content_timestamp;
+    }
+
+    public void setContent_timestamp(Timestamp content_timestamp) {
+        this.content_timestamp = content_timestamp;
     }
 }
