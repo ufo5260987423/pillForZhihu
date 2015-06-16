@@ -1,5 +1,7 @@
 package com.pillForZhihu.webApp.dao.utils;
 
+import com.pillForZhihu.webApp.tools.StringProcessor;
+
 /**
  * Created by ufo on 6/15/15.
  */
@@ -8,6 +10,26 @@ public class ValueBase implements ValueInf{
     private Long entityId;
     private Integer keyId;
     private String value;
+
+    public String toString(){
+        return this.getValue();
+    }
+
+    public String getValueName() {
+        return this.getClass().getSimpleName();
+    }
+
+    public String getValueIdName() {
+        return StringProcessor.lowerFirstChar(this.getValueName())+"_id";
+    }
+
+    public String getKeyIdName() {
+        return StringProcessor.lowerFirstChar(this.getValueName()).replace("value","key");
+    }
+
+    public String getEntityIdName() {
+        return StringProcessor.lowerFirstChar(this.getValueName()).replace("value","id");
+    }
 
     public Long getValueId() {
         return valueId;

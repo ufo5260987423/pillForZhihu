@@ -4,6 +4,9 @@ import com.pillForZhihu.webApp.dao.utils.EntityBase;
 
 /**
  * Created by ufo on 6/15/15.
+ *
+ * Content类用来描述一切的长内容。对应到知乎的业务逻辑当中，Content可以表示提问的内容和回答的内容。
+ * 当然了，你可以使用Content_key和Content_value来实现一个key-value结构来实现回答和提问的区分。
  */
 public class Content extends EntityBase{
     private String content;

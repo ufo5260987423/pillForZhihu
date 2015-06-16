@@ -1,11 +1,25 @@
 package com.pillForZhihu.webApp.dao.utils;
 
+import com.pillForZhihu.webApp.tools.StringProcessor;
+
 /**
  * Created by ufo on 6/15/15.
  */
 public class KeyBase implements KeyInf{
     private Integer keyId;
     private String key;
+
+    public String toString(){
+        return this.getKey();
+    }
+
+    public String getKeyIdName() {
+        return StringProcessor.lowerFirstChar(this.getKeyIdName());
+    }
+
+    public String getKeyName() {
+        return this.getClass().getSimpleName();
+    }
 
     public Integer getKeyId() {
         return keyId;

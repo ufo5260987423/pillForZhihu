@@ -5,7 +5,16 @@ package com.pillForZhihu.webApp.dao.utils;
  */
 public interface KeyInf {
     Integer getKeyId();
+
     void setKeyId(Integer keyId);
+
     String getKey();
+
     void setKey(String key);
+
+    String toString();
+
+    String getKeyIdName();
+
+    String getKeyName();
 }

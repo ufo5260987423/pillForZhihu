@@ -5,5 +5,10 @@ package com.pillForZhihu.webApp.dao.utils;
  */
 public interface EntityInf {
     Long getEntityId();
+
     void setEntityId(Long entityId);
+
+    String getEntityName();
+
+    String getEntityIdName();
 }
