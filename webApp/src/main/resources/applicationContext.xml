@@ -84,7 +84,7 @@
     </bean>
 
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="dataSource">
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>
@@ -111,7 +111,11 @@
         </property>
     </bean>
 
-    <bean class="com.pillForZhihu.webApp.utils.DatabaseController" lazy-init="false">
+    <bean name="databaseController" class="com.pillForZhihu.webApp.utils.DatabaseController" depends-on="sessionFactory">
         <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean name="baseController" class="com.pillForZhihu.webApp.logistic.controllers.BaseController" depends-on="databaseController">
+        <property name="databaseController" ref="databaseController"/>
     </bean>
 </beans>

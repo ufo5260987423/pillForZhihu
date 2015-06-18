@@ -12,7 +12,7 @@ import java.sql.Connection;
  */
 public class SqlSessionBase implements SqlSessionInf {
     private Session session;
-    private Transaction transactionx;
+    private Transaction transaction;
     private DatabaseController databaseController;
 
     public SqlSessionBase() {
@@ -49,7 +49,7 @@ public class SqlSessionBase implements SqlSessionInf {
     }
 
     public void commit() {
-        this.getTransactionx().commit();
+        this.getTransaction().commit();
     }
 
     public Connection close() {
@@ -58,14 +58,6 @@ public class SqlSessionBase implements SqlSessionInf {
 
     public Object get(Class clazz,Serializable id) {
         return this.getSession().get(clazz,id);
-    }
-
-    public Transaction getTransactionx() {
-        return transactionx;
-    }
-
-    public void setTransactionx(Transaction transactionx) {
-        this.transactionx = transactionx;
     }
 
     public DatabaseController getDatabaseController() {
@@ -78,5 +70,13 @@ public class SqlSessionBase implements SqlSessionInf {
 
     public void finalize(){
         this.close();
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 }

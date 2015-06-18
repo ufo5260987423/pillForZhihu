@@ -2,26 +2,35 @@ package com.pillForZhihu.webApp.utils;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+
+import javax.annotation.Resource;
 
 /**
  * Created by ufo on 6/16/15.
  */
 public class DatabaseController {
-    private static SessionFactory sessionFactory;
+    @Resource(name = "sessionFactory")
+    private SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
+    public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
-    public static void setSessionFactory(SessionFactory sessionFactory) {
-        DatabaseController.sessionFactory = sessionFactory;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     public SqlSessionInf getSqlSession() {
-        return new SqlSessionBase(getSessionFactory().openSession());
+        return new SqlSessionBase(this);
     }
 
-    public Session getSession(){
-        return getSessionFactory().openSession();
+    public Session getSession() {
+        System.out.println(sessionFactory);
+        return this.getSessionFactory().openSession();
     }
 }
+

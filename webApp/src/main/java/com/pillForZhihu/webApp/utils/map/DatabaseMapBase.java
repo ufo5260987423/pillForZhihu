@@ -23,16 +23,14 @@ public class DatabaseMapBase
     private SqlSessionInf sqlSession;
     private ENTITY entity;
 
-    public DatabaseMapBase(ENTITY entity) {
+    public DatabaseMapBase(ENTITY entity,Class<KEY> keyClass,Class<VALUE>valueClass) {
         this.setEntity(entity);
-        Type thisType = this.getClass();
-        Type[] params = ((ParameterizedType) thisType).getActualTypeArguments();
-        this.keyClass = (Class<KEY>) params[1];
-        this.valueClass = (Class<VALUE>) params[2];
+        this.keyClass = keyClass ;
+        this.valueClass = valueClass;
     }
 
-    public DatabaseMapBase(ENTITY entity, SqlSessionInf sqlSession) {
-        this(entity);
+    public DatabaseMapBase(ENTITY entity,Class<KEY>keyClass,Class<VALUE>valueClass, SqlSessionInf sqlSession) {
+        this(entity,keyClass,valueClass);
         this.setSqlSession(sqlSession);
 
         this.load();
@@ -94,7 +92,7 @@ public class DatabaseMapBase
 
     public void save() {
         DatabaseMapBase<ENTITY, KEY, VALUE> oldData =
-                new DatabaseMapBase(this.getEntity(), this.getSqlSession().getDatabaseController().getSqlSession());
+                new DatabaseMapBase(this.getEntity(),keyClass,valueClass ,this.getSqlSession().getDatabaseController().getSqlSession());
         try {
             for (String key : this.keySet()) {
                 if (!this.get(key).equals(oldData.get(key))) {
