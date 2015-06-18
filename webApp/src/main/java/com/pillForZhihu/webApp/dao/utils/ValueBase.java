@@ -24,7 +24,7 @@ public class ValueBase implements ValueInf{
     }
 
     public String getKeyIdName() {
-        return StringProcessor.lowerFirstChar(this.getValueName()).replace("value","key");
+        return StringProcessor.lowerFirstChar(this.getValueName()).replace("value","key_id");
     }
 
     public String getEntityIdName() {

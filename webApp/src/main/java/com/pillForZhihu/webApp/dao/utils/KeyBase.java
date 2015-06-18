@@ -14,7 +14,7 @@ public class KeyBase implements KeyInf{
     }
 
     public String getKeyIdName() {
-        return StringProcessor.lowerFirstChar(this.getKeyIdName());
+        return StringProcessor.lowerFirstChar(this.getKeyIdName()+"_id");
     }
 
     public String getKeyName() {

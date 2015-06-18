@@ -2,11 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.pillForZhihu.webApp.dao">
-    <class name="Content" table="content">
-        <id name="entityId" column="content_id" type="java.lang.Long">
+    <class name="User_edge" table="user_edge">
+        <id name="entityId" column="user_edge_id" type="java.lang.Long">
             <generator class="identity"/>
         </id>
-        <property name="content" column="content"/>
-        <property name="content_timestamp" column="content_timestamp" type="java.sql.Timestamp"/>
+        <property name="from_user_id" column="from_user_id"/>
+        <property name="to_user_id" column="user_pwd"/>
+        <property name="user_edge" column="user_edge"/>
     </class>
 </hibernate-mapping>

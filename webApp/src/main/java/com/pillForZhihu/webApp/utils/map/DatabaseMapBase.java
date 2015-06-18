@@ -94,7 +94,7 @@ public class DatabaseMapBase
 
     public void save() {
         DatabaseMapBase<ENTITY, KEY, VALUE> oldData =
-                new DatabaseMapBase(this.getEntity(), this.getSqlSession().getDatabaseControler().getSqlSession());
+                new DatabaseMapBase(this.getEntity(), this.getSqlSession().getDatabaseController().getSqlSession());
         try {
             for (String key : this.keySet()) {
                 if (!this.get(key).equals(oldData.get(key))) {

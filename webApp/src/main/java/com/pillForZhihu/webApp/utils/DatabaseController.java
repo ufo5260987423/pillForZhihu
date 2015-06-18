@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 /**
  * Created by ufo on 6/16/15.
  */
-public class DatabaseControler {
+public class DatabaseController {
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
@@ -14,7 +14,7 @@ public class DatabaseControler {
     }
 
     public static void setSessionFactory(SessionFactory sessionFactory) {
-        DatabaseControler.sessionFactory = sessionFactory;
+        DatabaseController.sessionFactory = sessionFactory;
     }
 
     public SqlSessionInf getSqlSession() {

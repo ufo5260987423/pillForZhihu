@@ -13,7 +13,7 @@ import java.sql.Connection;
 public class SqlSessionBase implements SqlSessionInf {
     private Session session;
     private Transaction transactionx;
-    private DatabaseControler databaseControler;
+    private DatabaseController databaseController;
 
     public SqlSessionBase() {
     }
@@ -22,9 +22,9 @@ public class SqlSessionBase implements SqlSessionInf {
         this.setSession(session);
     }
 
-    public SqlSessionBase(DatabaseControler databaseControler){
-        this.setDatabaseControler(databaseControler);
-        this.setSession(this.getDatabaseControler().getSession());
+    public SqlSessionBase(DatabaseController databaseController){
+        this.setDatabaseController(databaseController);
+        this.setSession(this.getDatabaseController().getSession());
     }
 
     public Query createQuery(String sql){
@@ -68,12 +68,12 @@ public class SqlSessionBase implements SqlSessionInf {
         this.transactionx = transactionx;
     }
 
-    public DatabaseControler getDatabaseControler() {
-        return databaseControler;
+    public DatabaseController getDatabaseController() {
+        return databaseController;
     }
 
-    public void setDatabaseControler(DatabaseControler databaseControler) {
-        this.databaseControler = databaseControler;
+    public void setDatabaseController(DatabaseController databaseController) {
+        this.databaseController = databaseController;
     }
 
     public void finalize(){

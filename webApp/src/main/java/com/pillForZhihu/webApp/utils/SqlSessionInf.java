@@ -26,7 +26,7 @@ public interface SqlSessionInf {
 
     Object get(Class clazz,Serializable id);
 
-    DatabaseControler getDatabaseControler();
+    DatabaseController getDatabaseController();
 
-    void setDatabaseControler(DatabaseControler databaseControler);
+    void setDatabaseController(DatabaseController databaseController);
 }
