@@ -29,11 +29,7 @@ public class UserController extends BaseController<User,User_key,User_value>{
     @RequestMapping(value="/user/{user_id}/list")
     public
     @ResponseBody
-    Map<String,String> listUserInfo(@PathVariable Long user_id,
-                                    HttpSession session){
-        if (!session.getAttribute("user_id").equals(user_id))
-            return null;
-
+    Map<String,String> listUserInfo(@PathVariable Long user_id){
         return this.listEntityInfo(user_id);
     }
 
@@ -76,11 +72,7 @@ public class UserController extends BaseController<User,User_key,User_value>{
     public
     @ResponseBody
     String[] getUserInfo(@PathVariable Long user_id,
-                         @PathVariable String user_attribute_key,
-                         HttpSession session) {
-        if (!session.getAttribute("user_id").equals(user_id))
-            return null;
-
+                         @PathVariable String user_attribute_key) {
         return this.getEntityInfo(user_id,user_attribute_key);
     }
 
