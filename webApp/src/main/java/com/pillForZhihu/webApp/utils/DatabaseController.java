@@ -3,17 +3,14 @@ package com.pillForZhihu.webApp.utils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-
-import javax.annotation.Resource;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by ufo on 6/16/15.
  */
+@Component
 public class DatabaseController {
-    @Resource(name = "sessionFactory")
+    @Autowired
     private SessionFactory sessionFactory;
 
     public SessionFactory getSessionFactory() {
@@ -29,7 +26,6 @@ public class DatabaseController {
     }
 
     public Session getSession() {
-        System.out.println(sessionFactory);
         return this.getSessionFactory().openSession();
     }
 }

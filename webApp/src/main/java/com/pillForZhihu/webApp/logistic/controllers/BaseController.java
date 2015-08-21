@@ -6,8 +6,8 @@ import com.pillForZhihu.webApp.dao.utils.ValueInf;
 import com.pillForZhihu.webApp.utils.DatabaseController;
 import com.pillForZhihu.webApp.utils.SqlSessionInf;
 import com.pillForZhihu.webApp.utils.map.DatabaseMapBase;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,9 @@ public class BaseController<ENTITY extends EntityInf,ENTITY_KEY extends KeyInf,E
     public static final String[] SUCCESS=new String[]{"flag","true"};
     public static final String[] FAIL=new String[]{"flag","false"};
 
-    @Resource(name = "databaseController")
+    public static final String USER_ID_ATTR="user_id";
+
+    @Autowired
     private DatabaseController databaseController;
     private SqlSessionInf sqlSession;
     private Class<ENTITY> entityClass;

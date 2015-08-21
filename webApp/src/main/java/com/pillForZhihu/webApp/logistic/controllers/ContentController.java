@@ -5,10 +5,7 @@ import com.pillForZhihu.webApp.dao.Content_key;
 import com.pillForZhihu.webApp.dao.Content_value;
 import com.pillForZhihu.webApp.logistic.keys.ContentKEY;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -17,6 +14,7 @@ import java.util.Map;
  * Created by ufo on 6/18/15.
  */
 @Controller
+@RequestMapping("/content")
 public class ContentController extends BaseController<Content,Content_key,Content_value> {
     public ContentController(){
         this.setEntityClass(Content.class);
@@ -24,52 +22,78 @@ public class ContentController extends BaseController<Content,Content_key,Conten
         this.setValueClass(Content_value.class);
     }
 
-    @RequestMapping(value = "/content/{content_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/entity",method = RequestMethod.GET)
     public
     @ResponseBody
-    Content getContent(@PathVariable Long content_id){
+    Content getContent(@RequestParam Long content_id){
         return this.getEntity(content_id);
     }
 
-    @RequestMapping(value="/content/{content_id}/list",method=RequestMethod.GET)
+    @RequestMapping(value="/entity",method=RequestMethod.PUT)
     public
     @ResponseBody
-    Map<String,String> listContentInfo(@PathVariable Long content_id){
+    Content putContent(@RequestParam String content,
+                       HttpSession httpSession){
+        Content newContent=new Content();
+        newContent.setContent(content);
+        newContent=this.saveEntity(newContent);
+        this.putEntityInfo(newContent.getEntityId(),
+                ContentKEY.AUTHOR_ID.toString(),
+                httpSession.getAttribute(USER_ID_ATTR).toString());
+        return newContent;
+    }
+
+    @RequestMapping(value="/entity",method = RequestMethod.DELETE)
+    public
+    @ResponseBody
+    String[]deleteContent(@RequestParam Long content_id,
+                          HttpSession httpSession){
+        if(httpSession.getAttribute(USER_ID_ATTR)
+                .equals(this.getEntityInfo(content_id,ContentKEY.AUTHOR_ID.toString())))
+            return this.deleteEntity(this.getEntity(content_id));
+        return FAIL;
+    }
+
+    @RequestMapping(value="/listInfo",method=RequestMethod.GET)
+    public
+    @ResponseBody
+    Map<String,String> listContentInfo(@RequestParam Long content_id){
         return this.listEntityInfo(content_id);
     }
 
-    @RequestMapping(value = "/content/{content_id}/{content_key}",method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public
     @ResponseBody
-    String[] getContentInfo(@PathVariable Long content_id,
-                            @PathVariable String content_key){
-        return this.getEntityInfo(content_id,content_key);
+    String[] getContentInfo(@RequestParam Long content_id,
+                            @RequestParam String content_key){
+        return this.getEntityInfo(content_id, content_key);
     }
 
-    @RequestMapping(value="/content/{content_id}",method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public
     @ResponseBody
-    String[] deleteContentInfo(@PathVariable Long content_id, HttpSession session){
+    String[] deleteContentInfo(@RequestParam Long content_id,
+                               HttpSession session){
         Map<String,String>contentInfo=this.listEntityInfo(content_id);
-        if(!contentInfo.get(ContentKEY.AUTHOR_ID.toString()).equals(session.getAttribute("user_id"))
-                ||contentInfo.get(ContentKEY.QUESTION_TITLE)!=null)
+        if(!contentInfo.get(ContentKEY.AUTHOR_ID.toString()).equals(session.getAttribute(USER_ID_ATTR))
+                ||contentInfo.get(ContentKEY.QUESTION_TITLE.toString())!=null)
             return FAIL;
 
         return this.deleteEntity(this.getEntity(content_id));
     }
 
-    @RequestMapping(value="content/{content_id}/{content_key}/{content_value}")
+    @RequestMapping(method = RequestMethod.PUT)
     public
-    String[] putContentInfo(@PathVariable Long content_id,
-                            @PathVariable String content_key,
-                            @PathVariable String content_value,
+    String[] putContentInfo(@RequestParam Long content_id,
+                            @RequestParam String content_key,
+                            @RequestParam String content_value,
                             HttpSession session){
         Map<String,String>contentInfo=this.listEntityInfo(content_id);
-        if(!contentInfo.get(ContentKEY.AUTHOR_ID.toString()).equals(session.getAttribute("user_id"))
-                ||contentInfo.get(ContentKEY.QUESTION_TITLE)!=null
-                ||contentInfo.get(ContentKEY.AUTHOR_ID)!=null)
+        if(!contentInfo.get(ContentKEY.AUTHOR_ID.toString()).equals(session.getAttribute(USER_ID_ATTR))
+                ||contentInfo.get(ContentKEY.QUESTION_TITLE.toString())!=null
+                ||contentInfo.get(ContentKEY.AUTHOR_ID.toString())!=null)
             return FAIL;
 
-        return this.putEntityInfo(content_id,content_key,content_value);
+        return this.putEntityInfo(content_id, content_key, content_value);
     }
 }

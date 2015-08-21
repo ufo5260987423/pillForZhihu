@@ -5,10 +5,7 @@ import com.pillForZhihu.webApp.dao.User_key;
 import com.pillForZhihu.webApp.dao.User_value;
 import com.pillForZhihu.webApp.utils.map.DatabaseMapBase;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -51,15 +48,15 @@ public class UserController extends BaseController<User,User_key,User_value>{
         session.setAttribute("user_id", tmp.get(0).getEntityId());
 
         Map<String,String> result= (Map<String, String>) databaseMapBase.clone();
-        result.put("user_id",tmp.get(0).getEntityId().toString());
+        result.put(USER_ID_ATTR,tmp.get(0).getEntityId().toString());
         return result;
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public
     @ResponseBody
     Map<String, String> register(User user, HttpSession session) {
-        Map<String,String> result=this.login(user,session);
+        Map<String,String> result=this.login(user, session);
         if (null ==result ) {
             this.saveEntity(user);
             this.setSqlSession(this.getDatabaseController().getSqlSession());
@@ -68,36 +65,36 @@ public class UserController extends BaseController<User,User_key,User_value>{
         return result;
     }
 
-    @RequestMapping(value = "/user/{user_id}/{user_attribute_key}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public
     @ResponseBody
-    String[] getUserInfo(@PathVariable Long user_id,
-                         @PathVariable String user_attribute_key) {
+    String[] getUserInfo(@RequestParam Long user_id,
+                         @RequestParam String user_attribute_key) {
         return this.getEntityInfo(user_id,user_attribute_key);
     }
 
-    @RequestMapping(value = "/user/{user_id}/{user_attribute_key}/{user_attribute_value}"
+    @RequestMapping(value = "/user"
             ,method = RequestMethod.PUT)
     public
     @ResponseBody
-    String[] putUserInfo(@PathVariable Long user_id,
-                         @PathVariable String user_attribute_key,
-                         @PathVariable String user_attribute_value,
+    String[] putUserInfo(@RequestParam Long user_id,
+                         @RequestParam String user_attribute_key,
+                         @RequestParam String user_attribute_value,
                          HttpSession session) {
-        if(!session.getAttribute("user_id").equals(user_id))
+        if(!session.getAttribute(USER_ID_ATTR).equals(user_id))
             return null;
 
         return this.putEntityInfo(user_id,user_attribute_key,user_attribute_value);
     }
 
-    @RequestMapping(value = "/user/{user_id}/{user_attribute_key}"
+    @RequestMapping(value = "/user"
             ,method = RequestMethod.DELETE)
     public
     @ResponseBody
-    String[] deleteUserInfo(@PathVariable Long user_id,
-                            @PathVariable String user_attribute_key,
+    String[] deleteUserInfo(@RequestParam Long user_id,
+                            @RequestParam String user_attribute_key,
                             HttpSession session) {
-        if(!session.getAttribute("user_id").equals(user_id))
+        if(!session.getAttribute(USER_ID_ATTR).equals(user_id))
             return null;
 
         return this.deleteEntityInfo(user_id,user_attribute_key);
